@@ -12,6 +12,8 @@ public static class WordManager
     public static List<string> sixLetterWords;
     public static Dictionary<string, Word> words;
     public static char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+    public static char[] vowels = { 'a', 'e', 'i', 'o', 'u'};
+    public static char[] consonants = {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z' };
     public static int[] values = { 1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10 };
 
     public static void Init()
@@ -76,9 +78,9 @@ public static class WordManager
 
     public static bool GetWordScore(out int score, string word)
     {
-        if (words.ContainsKey(word))
+        if (words.ContainsKey(word.ToLower()))
         {
-            score = words[word].scoreValue;
+            score = words[word.ToLower()].scoreValue;
         }
         else
         {

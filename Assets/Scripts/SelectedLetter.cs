@@ -24,5 +24,9 @@ public class SelectedLetter : MonoBehaviour
         activeAnchor.SetActive(false);
     }
 
+    public char GetLetter()
+    {
+        return letterText.text.ToLower().ToCharArray()[0];
+    }
 
 }

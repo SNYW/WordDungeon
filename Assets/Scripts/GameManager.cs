@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class GameManager : MonoBehaviour
     public LetterKeyboard letterKeyboard;
     public ChosenLettersPanel chosenLettersPanel;
     public GameObject castButton;
+    public GameObject letterDropPrefab;
+    public Transform letterDropAnchor;
 
     private void Awake()
     {
@@ -45,12 +49,32 @@ public class GameManager : MonoBehaviour
         {
             combatText.UpdateSpellText(chosenLettersPanel.GetWord(), score);
             combatTextManager.AddTextRequest(combatText);
-            Debug.Log($"You Scored {score} points!");
         }
 
-        chosenLettersPanel.ClearAll();
+        chosenLettersPanel.ClearAllCast();
+        SpawnOnHitLetters(score);
     }
-        
+
+    private void SpawnOnHitLetters(int s)
+    {
+        for (int i = 0; i < s/2+2; i++)
+        {
+            var letterDrop = Instantiate(letterDropPrefab, letterDropAnchor.position, Quaternion.identity).GetComponent<LetterDrop>();
+            var letter = WordManager.vowels[Random.Range(0, WordManager.vowels.Length - 1)];
+
+            letterDrop.Init(letter);
+            LetterKeyboard.instance.FindButtonWithLetter(letter).AddCharges(1);
+        }
+        for (int i = 0; i < s/2; i++)
+        {
+            var letterDrop = Instantiate(letterDropPrefab, letterDropAnchor.position, Quaternion.identity).GetComponent<LetterDrop>();
+            var letter = WordManager.consonants[Random.Range(0, WordManager.consonants.Length - 1)];
+
+            letterDrop.Init(letter);
+            LetterKeyboard.instance.FindButtonWithLetter(letter).AddCharges(1);
+        }
+    }
+
     public bool CanCastWord()
     {
         return chosenLettersPanel.canCastWord;

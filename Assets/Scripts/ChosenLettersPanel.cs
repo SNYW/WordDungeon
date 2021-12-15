@@ -32,7 +32,7 @@ public class ChosenLettersPanel : MonoBehaviour
 
     private void Update()
     {
-        canCastWord = charIndex == maxLetters;
+        canCastWord = WordManager.GetWordScore(out int score, GetWord());
     }
 
     public void SelectLetter(char c, int scoreValue)
@@ -74,5 +74,20 @@ public class ChosenLettersPanel : MonoBehaviour
             s.DeleteLetter();
         }
         charIndex = 0;
+    }
+    
+    public void ClearAllCast()
+    {
+       foreach(SelectedLetter s in slots)
+        {
+            s.DeleteLetter();
+            LetterKeyboard.instance.FindButtonWithLetter(s.GetLetter()).RemoveCharges(1);
+        }
+        charIndex = 0;
+    }
+
+    public bool CanDeleteLetter()
+    {
+        return charIndex > 0;
     }
 }
