@@ -43,10 +43,11 @@ public class ChosenLettersPanel : MonoBehaviour
         charIndex++;
     }
 
-    public void DeleteLetter()
+    public void DeleteLetter(bool refund)
     {
         charIndex = Mathf.Clamp(charIndex - 1, 0, maxLetters);
-        slots[charIndex].DeleteLetter();
+        slots[charIndex].DeleteLetter(); 
+        if(refund)LetterKeyboard.instance.FindButtonWithLetter(slots[charIndex].GetLetter()).AddCharges(1);
     }
 
     private bool CanAddLetter()
@@ -71,17 +72,7 @@ public class ChosenLettersPanel : MonoBehaviour
     {
        foreach(SelectedLetter s in slots)
         {
-            s.DeleteLetter();
-        }
-        charIndex = 0;
-    }
-    
-    public void ClearAllCast()
-    {
-       foreach(SelectedLetter s in slots)
-        {
-            s.DeleteLetter();
-            LetterKeyboard.instance.FindButtonWithLetter(s.GetLetter()).RemoveCharges(1);
+            s.DeleteLetter(); 
         }
         charIndex = 0;
     }

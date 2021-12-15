@@ -7,7 +7,7 @@ public class LetterDrop : MonoBehaviour
     public float fadeOutRate;
     public TMP_Text letterText;
     private Rigidbody2D rb;
-    public Image image;
+    public CanvasGroup canvasGroup;
 
     private void Awake()
     {
@@ -28,9 +28,8 @@ public class LetterDrop : MonoBehaviour
 
     private void FadeOut()
     {
-        image.color = new Color(image.color.r, image.color.g, image.color.b, image.color.a - Time.deltaTime * fadeOutRate);
-        letterText.color = new Color(letterText.color.r, letterText.color.g, letterText.color.b, letterText.color.a - Time.deltaTime * fadeOutRate);
-        if (image.color.a < 1)
+        canvasGroup.alpha -= Time.deltaTime * fadeOutRate;
+        if(canvasGroup.alpha <= 0)
         {
             Destroy(gameObject);
         }

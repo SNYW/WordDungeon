@@ -276,9 +276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fecdca15476bdd41bf8acec0095e2ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeOutRate: 0.1
+  fadeOutRate: 0.5
   letterText: {fileID: 3810608098964183389}
-  image: {fileID: 373379201148369404}
+  canvasGroup: {fileID: 1481893913127496962}
 --- !u!61 &5714871122411707182
 BoxCollider2D:
   m_ObjectHideFlags: 0

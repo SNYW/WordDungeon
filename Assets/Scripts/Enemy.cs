@@ -1,18 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int startingHealth;
+    public int currentHealth;
+    public HealthBar healthBar;
+
+    private void Start()
     {
-        
+        currentHealth = startingHealth;
+        healthBar.UpdateHealthBar(currentHealth, startingHealth);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Init(int hp)
     {
-        
+        startingHealth = hp;
+        currentHealth = startingHealth;
+        healthBar.UpdateHealthBar(currentHealth, startingHealth);
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
+        healthBar.UpdateHealthBar(currentHealth, startingHealth);
+    }
+
+    private void Die()
+    {
+        GameManager.gm.SpawnNewEnemy();
+        Destroy(gameObject);
     }
 }
